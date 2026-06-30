@@ -103,6 +103,11 @@ Scale-invariance test: log-ratio scatter of random time pairs, price vs hashrate
 
 ![scale_inv_HP.py output](scale_inv_HP.png)
 
+### `ssmix_TVP.py`
+Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) original (level) space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to the level. → [details](ssmix_TVP_README.txt)
+
+![ssmix_TVP.py output](ssmix_TVP.png)
+
 ## Data source / attribution
 
 Daily metrics from the [CoinMetrics Community API](https://coinmetrics.io/community-network-data/).

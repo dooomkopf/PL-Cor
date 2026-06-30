@@ -1,0 +1,5 @@
+# data (fetched locally via fetch_coinmetrics.py -- not committed)
+cm_data.csv
+# python
+__pycache__/
+*.pyc

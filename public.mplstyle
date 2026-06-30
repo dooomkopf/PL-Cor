@@ -1,0 +1,38 @@
+# project.mplstyle — portables Dark-Brown-Theme, kein LaTeX, Standard-Serif.
+# Eigenstaendig, damit das private hz.mplstyle nicht veroeffentlicht wird.
+
+text.usetex      : False
+mathtext.fontset : dejavuserif
+font.family      : serif
+font.size        : 12
+legend.fontsize  : 10
+axes.titlesize   : 13
+
+xtick.direction    : in
+ytick.direction    : in
+xtick.major.size   : 5.0
+xtick.minor.size   : 3.0
+ytick.major.size   : 5.0
+ytick.minor.size   : 3.0
+axes.linewidth     : 0.8
+legend.handlelength: 2.0
+legend.framealpha  : 0.92
+
+# --- Dark-Brown-Palette (RGB-Tupel, weil '#' = Kommentar) ---
+figure.facecolor : (0.094, 0.063, 0.047)
+axes.facecolor   : (0.160, 0.110, 0.078)
+axes.edgecolor   : (0.74, 0.64, 0.52)
+axes.labelcolor  : (0.88, 0.80, 0.68)
+text.color       : (0.88, 0.80, 0.68)
+xtick.color      : (0.80, 0.70, 0.57)
+ytick.color      : (0.80, 0.70, 0.57)
+grid.color       : (0.42, 0.32, 0.24)
+grid.alpha       : 0.5
+grid.linestyle   : :
+savefig.facecolor : (0.094, 0.063, 0.047)
+savefig.edgecolor : (0.094, 0.063, 0.047)
+legend.facecolor  : (0.160, 0.110, 0.078)
+legend.edgecolor  : (0.45, 0.36, 0.27)
+
+# --- "cool" Akzent-Zyklus (warm/kontrastierend auf Braun) ---
+axes.prop_cycle : cycler('color', ['e8b84b', '4ec9b0', 'e07b54', '9b8cce', '6db3f2', 'd96c8a'])

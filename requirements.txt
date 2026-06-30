@@ -1,0 +1,9 @@
+# PL-Cor -- Python dependencies (pinned for reproducibility)
+# Install with:  pip install -r requirements.txt
+# Tested with Python 3.10
+numpy==1.26.4
+scipy==1.15.1
+matplotlib==3.10.9
+statsmodels==0.14.2        # ADF / KPSS unit-root tests, quantile regression
+scikit-learn==1.4.2        # LinearRegression (scale-invariance slope fit)
+requests==2.32.3           # fetch_coinmetrics.py (CoinMetrics Community API)

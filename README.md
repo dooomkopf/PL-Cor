@@ -23,6 +23,18 @@ because regressing two trending level series directly can give spurious results;
 the residual stationarity test in `stationarity.py` checks whether a given level
 relation is genuine or spurious.
 
+## Paper draft
+
+### `impulse-response-DRAFT.pdf`
+Impulse-response (convolution) model between the hashrate and price exponents
+`n_HR(t)` / `n_P(t)`: a Tikhonov-smoothed lag-kernel estimator with a
+closed-form solution, cross-validation in time blocks, and
+block-wild-bootstrap bands. Main result: the price->hashrate response is
+permanent (step response `H(200) ~ +0.27..+0.33`, probe-invariant), whereas
+hashrate->price is transient with a negative tail. Includes robustness checks
+(probe grid, bear-regime interaction, L2 spring control, phase analysis) and
+the mathematical background. (Draft, English.)
+
 ## Quick start
 
 ```

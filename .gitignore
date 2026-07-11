@@ -3,6 +3,3 @@ cm_data.csv
 # python
 __pycache__/
 *.pyc
-__pycache__/
-*.pyc
-cm_data.csv

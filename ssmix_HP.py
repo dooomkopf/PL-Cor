@@ -36,7 +36,7 @@ DATA_FILE = _DF if os.path.isabs(_DF) and os.path.exists(_DF) else os.path.join(
 STYLE_FILE = _SF if os.path.isabs(_SF) and os.path.exists(_SF) else os.path.join(PARENT, os.path.basename(_SF))
 
 # ===================== GOAL — READ THIS BEFORE EDITING =====================
-# We IMPROVE the reference Kalman (Gaussian, LEVEL space) in several ways:
+# We IMPROVE the reference Kalman (Gaussian, PRICE space) in several ways:
 #   * EXPONENT space (n_P, n_H) -> stationary I(0), no spurious-regression danger
 #   * MEASURED noise, NOT Gaussian: Laplace (price, b~102) / Student-t PER CYCLE
 #     (hashrate, sigma/nu per halving cycle -- sec 3b of ssmix_model.md)
@@ -118,7 +118,18 @@ def kalman_smoother(y, R, Qhi, order=1):
     return a_s[:, 0], a_s[:, 1], np.sqrt(np.maximum(P_s[:, 0, 0], 0.0))
 
 
-# MEASURED observation laws, PER CYCLE (see ssmix_model.md sec 3b) -- TWO tables:
+# MEASURED observation laws, PER CYCLE (see ssmix_model.md sec 3b) -- TWO tables.
+#
+# WORKFLOW / PROVENANCE (read before touching these numbers):
+# The noise is MEASURED ONCE, independently, in EXPONENT space (daily n_X),
+# and used downstream as a KNOWN, FIXED input -- never re-fitted in-model.
+#   HASH_CYC  <- dailynHR_distfit.py: AIC/KS/Anderson-Darling winner per
+#                halving cycle = Student-t (evidence: dailynHR_distfit_cycles.png
+#                and dailynHR_distfit_global.png).
+#   PRICE_CYC <- per-cycle Laplace fits of the daily n_P (values documented in
+#                ssmix_model.md sec 3b; measuring script not yet in this repo).
+# Consumers: robust_smoother() below (uncertainty band), and ssmix_TVP_methods
+# (tvp_gamma R_t, level_tvp_kalman noise='ours' var_x/var_y).
 NOISE = {'P': dict(dist='laplace'),     # price: Laplace per cycle (PRICE_CYC)
          'H': dict(dist='student')}     # hashrate: Student-t per cycle (HASH_CYC)
 

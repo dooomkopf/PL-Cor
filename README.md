@@ -19,7 +19,7 @@ central quantity:
 n(t) = log( X(t+1) / X(t) ) / log( t(t+1) / t(t) )
 ```
 
-Working in this *exponent space* (rather than the price/level space) matters
+Working in this *exponent space* (rather than the price space) matters
 because regressing two trending level series directly can give spurious results;
 the residual stationarity test in `stationarity.py` checks whether a given level
 relation is genuine or spurious.
@@ -117,9 +117,30 @@ Scale-invariance test: log-ratio scatter of random time pairs, price vs hashrate
 ![scale_inv_HP.py output](scale_inv_HP.png)
 
 ### `ssmix_TVP.py`
-Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) original (level) space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to the level. → [details](ssmix_TVP_README.txt)
+Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) price space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to price space. → [details](ssmix_TVP_README.txt)
 
 ![ssmix_TVP.py output](ssmix_TVP.png)
+
+### `dailynHR_distfit.py`
+The noise measurement behind ssmix: MLE fits of Normal / Laplace / Student-t /
+Generalized Normal / Cauchy to the daily `n_HR`, per halving cycle, compared
+via AIC/BIC (overall), KS (center) and Anderson-Darling (tails). The winning
+per-cycle Student-t parameters are the **fixed** noise channel `HASH_CYC` in
+`ssmix_HP.py` — the noise is measured once, in exponent space, and taken as a
+known input downstream (never re-fitted in-model). → [details](dailynHR_distfit_README.txt)
+
+![dailynHR_distfit.py output](dailynHR_distfit_cycles.png)
+
+### `noise_movav_H.py`
+Validation of that noise law in price space: Monte-Carlo paths whose daily
+steps contain only the measured exponent noise (`ln H_t = ln H_{t-1} + n ·
+ln(t/(t−1))`, `n` ~ per-cycle Student-t, drift-free), around an invisible
+centered 30-day moving-average anchor of the real hashrate. A good noise law
+⇒ the Q1..Q99 band envelopes the real scatter. The same MC construction
+carries the measured exponent noise into price space for the ssmix coupling
+estimator. → [details](noise_movav_H_README.txt)
+
+![noise_movav_H.py output](noise_movav_H.png)
 
 ## Data source / attribution
 

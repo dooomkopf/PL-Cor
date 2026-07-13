@@ -3,3 +3,15 @@ cm_data.csv
 # python
 __pycache__/
 *.pyc
+# private working material: screenshots, chat transcripts, reviews/logs, scratch
+Bildschirmfoto*.png
+chat_adriano_*.md
+Chatverlauf-Adriano*.txt
+*.docx
+*.log
+COLLAB_LOG.md
+.codex_response.md
+tmp-*/
+tmp-*.txt
+*.bak
+.*_cache.json

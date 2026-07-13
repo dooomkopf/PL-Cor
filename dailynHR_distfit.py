@@ -9,7 +9,7 @@ noise law the hashrate exponent follows -- input for the noise model.
 Since location AND scale drift per cycle (see dailynHR.py), the per-cycle fit
 is the honest one; the global fit is shown only for contrast.
 
-WORKFLOW / where the numbers go (provenance chain -- keep in sync!):
+WORKFLOW / where the numbers go (keep in sync!):
 The winning per-cycle Student-t parameters (sigma, nu) printed by this script
 are hardcoded as HASH_CYC in SSmix/ssmix_HP.py. The noise is MEASURED ONCE
 here, in exponent space, and every downstream estimator (robust_smoother

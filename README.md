@@ -116,11 +116,6 @@ Scale-invariance test: log-ratio scatter of random time pairs, price vs hashrate
 
 ![scale_inv_HP.py output](scale_inv_HP.png)
 
-### `ssmix_TVP.py`
-Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) price space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to price space. → [details](ssmix_TVP_README.txt)
-
-![ssmix_TVP.py output](ssmix_TVP.png)
-
 ### `dailynHR_distfit.py`
 The noise measurement behind ssmix: MLE fits of Normal / Laplace / Student-t /
 Generalized Normal / Cauchy to the daily `n_HR`, per halving cycle, compared
@@ -141,6 +136,11 @@ carries the measured exponent noise into price space for the ssmix coupling
 estimator. → [details](noise_movav_H_README.txt)
 
 ![noise_movav_H.py output](noise_movav_H.png)
+
+### `ssmix_TVP.py`
+Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) price space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to price space. → [details](ssmix_TVP_README.txt)
+
+![ssmix_TVP.py output](ssmix_TVP.png)
 
 ## Data source / attribution
 

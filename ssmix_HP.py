@@ -120,7 +120,7 @@ def kalman_smoother(y, R, Qhi, order=1):
 
 # MEASURED observation laws, PER CYCLE (see ssmix_model.md sec 3b) -- TWO tables.
 #
-# WORKFLOW / PROVENANCE (read before touching these numbers):
+# WORKFLOW / WHERE THESE NUMBERS COME FROM (read before touching them):
 # The noise is MEASURED ONCE, independently, in EXPONENT space (daily n_X),
 # and used downstream as a KNOWN, FIXED input -- never re-fitted in-model.
 #   HASH_CYC  <- dailynHR_distfit.py: AIC/KS/Anderson-Darling winner per

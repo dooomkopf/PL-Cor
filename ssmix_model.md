@@ -47,17 +47,36 @@ per cycle — NOT a robust replacement of the signal.
   '13 (5.4, 57) · '17 (8.7, 96) · '21 (7.4, 107) · '25 (−2.5, 103).
 - Hashrate `n_H`: **Student-t per cycle (μ, s, ν)**:
   '13 (14.9, 219, 17.5) · '17 (−1.3, 377, 9.2) · '21 (3.2, 566, 21.8) · '25 (3.9, 697, 158.8).
-- Use the per-cycle width as the FIXED noise scale (NOT a global value). Same channel
-  feeds the band and M2.
+- Use the per-cycle **width** as the FIXED noise scale (NOT a global value).
+  The fitted offset/location μ is NOT fed into the Kalman noise channel. For the
+  downstream test the noise is drift-free: draw around zero with the measured
+  width and shape. Same channel feeds the band and M2.
+
+**M2 / mod RTS — concrete current model (13.07.2026):**
+- Main test stays in `n_P/n_H`: `n_H(t) = γ(t) n_P(t) + ε_t`, plus the already
+  included free-intercept check `n_H(t) = α(t) + γ(t)n_P(t) + ε_t`.
+- SG-365 is the reference curve. A freely estimated `z` is allowed as an add-on
+  consistency check, but it is not allowed to redefine the idea.
+- `mod RTS` is only the H/P diagnostic: `log` is used as a power-law arithmetic
+  transform, because `d log(X) = n_X d log(t)`. No separate log-analysis space is
+  introduced.
+- The `mod RTS` noise width is extracted from the same MC mechanism as
+  `noise_movav_H.py`: for each day, draw drift-free daily exponent noise from the
+  measured per-cycle law, map it one step into H/P via `d log(X)=n d log(t)`, and
+  take the ensemble variance of that transformed one-step residual.
+- Therefore `R_t = Var_MC(H_noise) + γ(t)^2 Var_MC(P_noise)`. The Student-t shape
+  is already present in the MC draw from `dailynHR_distfit.py`; there is no extra
+  residual-dependent Student-t reweighting inside `mod RTS`.
 
 **ERRORS I MADE (do not repeat):**
-- treated the robust likelihood as **re-estimating z** → z moved off SG. **WRONG. z = SG, fixed.**
+- treated the freely estimated `z` as a **replacement** for SG. Wrong framing:
+  SG is the reference signal; free `z` is only a small diagnostic/add-on.
 - made `--obs robust` the silent default.
 - used ν=15 + a **global** MAD-s for hashrate instead of the **per-cycle μ + width** (§3b).
 
 > ⚠️ §2–§5 below describe a robust-Kalman that *re-estimates* z — **SUPERSEDED** by
-> the above. z = SG (fixed). The Laplace/Student-t are the measured noise, used for
-> the band and M2, not to move z.
+> the above where they imply `z` replaces SG. Keep free `z` only as a diagnostic.
+> The Laplace/Student-t widths are the measured noise channel for bands and M2.
 
 ---
 

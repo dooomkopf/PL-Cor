@@ -33,33 +33,39 @@ STEP 3 -- level-space quantity, ORIGINAL space   (rolling_slope)    -> PLOT 2
 
 STEP 4 -- does OUR method reproduce it?   (integrate_exp_to_level) -> PLOT 2
   Integrate our exponent gamma back:  ln H_rec = sum( gamma_exp * d(ln P) ),
-  then its rolling slope. If that curve sits on the actual-ln-H curve, our
-  independent exponent-space estimate reproduces the level coupling.
+  then its rolling slope. Here log is only the power-law arithmetic transform.
+  If that curve sits on the transformed H curve, our independent n_P/n_H
+  estimate reproduces the H/P diagnostic coupling.
 
 KEY DISTINCTION (do not confuse again)
 --------------------------------------
-  gamma_exp  = LOCAL slope (tangent) of the log-log curve = our fluctuation coupling.
-  gamma_orig = OVERALL slope (secant) of the log-log curve = the trend (static OLS ~ 2).
+  gamma_exp  = LOCAL slope (tangent) of the power-law curve = our fluctuation coupling.
+  gamma_orig = OVERALL slope (secant) of the power-law curve = the trend (static OLS ~ 2).
   They are connected by INTEGRATION (step 4), NOT by a power -> they genuinely differ
   (~0.4 vs ~2). One is not the power-transform of the other.
 
 
 OPTION Y (open / pending)
 -------------------------
-For a FAIR comparison of gamma(t) with the level-space Kalman curve, panel (b)
-should be estimated with a Kalman -- but using OUR noise, not Gaussian. Subtlety:
-in the level space our noise is the INTEGRATED exponent noise = a random walk.
-Differencing the level regression  d(ln H) = gamma * d(ln P) + eps  brings back
-n_H = gamma * n_P -- i.e. it may reduce to our exponent-space TVP (PLOT 1).
-Whether option (y) is genuinely distinct or equivalent to PLOT 1 is open.
+For a fair H/P diagnostic, panel (b) is estimated with a Kalman using OUR noise,
+not Gaussian. `log` is only the power-law transform: d log(X) = n_X d log(t).
+
+Current mod RTS rule:
+  - per-cycle noise law is measured once upstream;
+  - offset/location mu is ignored downstream;
+  - draw drift-free daily exponent noise with the measured width and shape;
+  - map the MC draw one step into H/P exactly like noise_movav_H.py;
+  - use R_t = Var_MC(H_noise) + gamma(t)^2 Var_MC(P_noise);
+  - no extra residual-dependent Student-t reweighting inside Kalman, because
+    Student-t is already the MC draw law from dailynHR_distfit.py.
 
 
 FILES
 -----
   ssmix_TVP.py            -- orchestrator (run this)
   ssmix_TVP_methods.py    -- ALL the math (no plotting)
-  ssmix_TVP_plot1.py      -- plot (a) exponent-space gamma_exp(t)  [OUR method]
-  ssmix_TVP_plot2.py      -- plot (b) original-space: actual vs our integrated
+  ssmix_TVP_plot1.py      -- plot (a) n_P/n_H gamma_exp(t)  [OUR method]
+  ssmix_TVP_plot2.py      -- plot (b) H/P diagnostic: actual vs our integrated
   ssmix_model.md          -- the full ssmix concept (signal + measured noise)
 
 RUN:  python ssmix_TVP.py [--SG 365] [--poly 2] [--bwg 365] [--win 365]

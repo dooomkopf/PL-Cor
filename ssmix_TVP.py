@@ -19,17 +19,33 @@ import ssmix_TVP_plot2
 def print_table(R):
     g, gamma, zP, zH = R['g'], R['gamma'], R['zP'], R['zH']
     print("=============== COUPLING  price <-> hashrate ===============")
-    print("  gamma_exp  = our slope n_H/n_P   (EXPONENT space, fluctuations)")
-    print("  gamma_orig = slope ln H / ln P   (ORIGINAL space, static OLS ~2)")
+    print("  gamma_exp  = our slope n_H/n_P   (n-space, fluctuations)")
+    print("  gamma_fa   = same Kalman, FREE intercept alpha(t) (Adriano check 13.07.)")
+    print("  gamma_orig = H/P diagnostic slope; log is only the power-law transform")
     print("  corr       = correlation of the two exponent signals (what you SEE)")
-    print(f"  GLOBAL:   gamma_exp = {R['g0']:+.2f}     gamma_orig = {R['lev_g']:+.2f}")
-    print("    cycle | gamma_exp | gamma_orig |  corr")
-    print("    ------+-----------+------------+------")
+    print(f"  GLOBAL:   gamma_exp = {R['g0']:+.2f}     gamma_fa = {R['g0_fa']:+.2f}     gamma_orig = {R['lev_g']:+.2f}")
+    print("    cycle | gamma_exp | gamma_fa | gamma_orig |  corr")
+    print("    ------+-----------+----------+------------+------")
     for c, (a, b) in CYC.items():
         m = (g >= a) & (g < b)
         if m.sum() > 30:
             ge = float(np.median(gamma[m])); cr = float(np.corrcoef(zP[m], zH[m])[0, 1])
-            print(f"     '{c}  |   {ge:+5.2f}   |    {R['lev'].get(c, float('nan')):+5.2f}   | {cr:+5.2f}")
+            gf = float(np.median(R['gamma_fa'][m]))
+            print(f"     '{c}  |   {ge:+5.2f}   |  {gf:+5.2f}  |    {R['lev'].get(c, float('nan')):+5.2f}   | {cr:+5.2f}")
+    if 'mod_noise' in R:
+        print("\n  mod RTS noise channel:")
+        print("    R_t = MC var(H) + gamma^2 * MC var(P); Student-t is in the MC draw,")
+        print("    no residual-dependent Student-t reweighting inside Kalman.")
+        print("    cycle | sd_P_MC | sd_H_MC | sd_R_t")
+        print("    ------+---------+---------+-------")
+        mn = R['mod_noise']
+        for c, (a, b) in CYC.items():
+            m = (g >= a) & (g < b)
+            if m.sum() > 30:
+                sx = float(np.sqrt(np.nanmedian(mn['var_x'][m])))
+                sy = float(np.sqrt(np.nanmedian(mn['var_y'][m])))
+                sr = float(np.sqrt(np.nanmedian(mn['R_last'][m])))
+                print(f"     '{c}  | {sx:7.4f} | {sy:7.4f} | {sr:6.4f}")
     print("===========================================================")
 
 
@@ -40,7 +56,7 @@ def main():
     ap.add_argument('--bwg', type=float, default=BWG, help='gamma_exp(t) smoothing bandwidth [days]')
     ap.add_argument('--poly', type=int, choices=[1, 2], default=2)
     ap.add_argument('--win', type=int, default=365, help='rolling window for integrated gamma_exp slope [days]')
-    ap.add_argument('--bwl', type=float, default=20.0, help='level-Kalman bandwidth (panel b) [days]')
+    ap.add_argument('--bwl', type=float, default=20.0, help='hashrate-space Kalman bandwidth (panel b) [days]')
     ap.add_argument('--no-plot', action='store_true')
     args = ap.parse_args()
     bw = args.bw if args.bw is not None else args.SG / 8.0

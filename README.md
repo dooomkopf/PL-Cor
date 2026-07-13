@@ -121,24 +121,36 @@ The noise measurement behind ssmix: MLE fits of Normal / Laplace / Student-t /
 Generalized Normal / Cauchy to the daily `n_HR`, per halving cycle, compared
 via AIC/BIC (overall), KS (center) and Anderson-Darling (tails). The winning
 per-cycle Student-t parameters are the **fixed** noise channel `HASH_CYC` in
-`ssmix_HP.py` — the noise is measured once, in exponent space, and taken as a
-known input downstream (never re-fitted in-model). → [details](dailynHR_distfit_README.txt)
+`ssmix_HP.py`: the fitted location is discarded downstream, while the measured
+width and shape are used drift-free and never re-fitted in-model. The global
+pooled fit is shown separately because it hides the cycle-dependent widths.
+→ [details](dailynHR_distfit_README.txt)
 
-![dailynHR_distfit.py output](dailynHR_distfit_cycles.png)
+![dailynHR_distfit.py per-cycle output](dailynHR_distfit_cycles.png)
+
+![dailynHR_distfit.py global output](dailynHR_distfit_global.png)
 
 ### `noise_movav_H.py`
-Validation of that noise law in price space: Monte-Carlo paths whose daily
+Validation of that noise law in the H diagnostic: Monte-Carlo paths whose daily
 steps contain only the measured exponent noise (`ln H_t = ln H_{t-1} + n ·
 ln(t/(t−1))`, `n` ~ per-cycle Student-t, drift-free), around an invisible
 centered 30-day moving-average anchor of the real hashrate. A good noise law
 ⇒ the Q1..Q99 band envelopes the real scatter. The same MC construction
-carries the measured exponent noise into price space for the ssmix coupling
-estimator. → [details](noise_movav_H_README.txt)
+carries the measured exponent noise into the H/P diagnostic for the ssmix
+coupling estimator; `log` appears only as the arithmetic power-law transform
+`d log(X) = n_X d log(t)`. → [details](noise_movav_H_README.txt)
 
 ![noise_movav_H.py output](noise_movav_H.png)
 
 ### `ssmix_TVP.py`
-Time-varying coupling `γ(t)` between the price exponent `n_P` and the hashrate exponent `n_HR`. Two panels: (a) exponent-space `γ_exp(t)` — the fluctuation coupling from a per-cycle, noise-aware time-varying-parameter Kalman; (b) price space `γ_orig(t)` — the static log-log OLS slope (~2) vs the exponent estimate integrated back to price space. → [details](ssmix_TVP_README.txt)
+Time-varying H/P coupling `γ(t)`. Panel (a) is the primary test in the
+`n_H/n_P`-Raum: the per-cycle, noise-aware TVP Kalman estimate `γ_exp(t)` and
+its free-intercept check. Panel (b) is the H/P diagnostic: Adrianos frozen
+weekly Gaussian RTS reconstruction, `mod RTS` with the measured Monte-Carlo
+noise variance, and `integrated γ_exp` as the back-transform of the primary
+estimate. The Student-t shape is already represented by the MC draws, so
+`mod RTS` applies no additional residual-dependent Student-t reweighting.
+→ [details](ssmix_TVP_README.txt)
 
 ![ssmix_TVP.py output](ssmix_TVP.png)
 

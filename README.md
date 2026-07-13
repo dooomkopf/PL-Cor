@@ -1,5 +1,5 @@
 # PL-Cor — Bitcoin Power-Law Correlation
-# Collab-work w/ A. Pecere (@ZeitgeistExplo1 on X), reg. Kaman RTS in price space
+# Collab-work w/ A. Pecere (@ZeitgeistExplo1 on X), reg. Kalman RTS in price space
 
 Tools for studying Bitcoin's **power-law scaling laws** and the coupling between
 them — in particular the price exponent `n_P(t)` and the hashrate exponent

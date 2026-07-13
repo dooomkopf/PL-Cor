@@ -1,4 +1,5 @@
 # PL-Cor — Bitcoin Power-Law Correlation
+# Collab-work w/ A. Pecere (@ZeitgeistExplo1 on X), reg. Kaman RTS in price space
 
 Tools for studying Bitcoin's **power-law scaling laws** and the coupling between
 them — in particular the price exponent `n_P(t)` and the hashrate exponent
@@ -23,7 +24,7 @@ because regressing two trending level series directly can give spurious results;
 the residual stationarity test in `stationarity.py` checks whether a given level
 relation is genuine or spurious.
 
-## Paper draft
+## Math explainer draft
 
 ### `impulse-response-DRAFT.pdf`
 Impulse-response (convolution) model between the hashrate and price exponents

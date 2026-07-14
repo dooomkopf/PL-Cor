@@ -22,7 +22,6 @@ import os
 import argparse
 import numpy as np
 import pandas as pd
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import LogLocator, FuncFormatter, NullFormatter
 from scipy import stats
@@ -140,7 +139,6 @@ def main():
         return
 
     plt.style.use(STYLE_FILE)
-    mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
     fig, ax = plt.subplots(figsize=(13, 7))
     vis = t >= t0
     ax.plot(t[vis], H[vis], color=H_COLOR, lw=1.2, alpha=0.7, label='Hashrate (real)')
@@ -165,7 +163,7 @@ def main():
               edgecolor='#808080', labelcolor='#E0E0E0')
     ax.set_title(f'Hashrate Noise Band via MC of real daily Exponents '
                  f'[{"Student-t" if dist == "student" else "Laplace"}]',
-                 color='#CCCCCC', fontsize=13, fontfamily='Comfortaa',
+                 color='#CCCCCC', fontsize=13,
                  fontweight='bold', usetex=False, pad=14)
     _w, _h = fig.get_size_inches()
     fig.subplots_adjust(top=1 - 0.5 / _h, bottom=0.6 / _h, left=1.1 / _w, right=1 - 0.35 / _w)

@@ -31,11 +31,9 @@ import numpy as np
 import pandas as pd
 from datetime import date
 from scipy.linalg import cho_factor, cho_solve
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 
 rng = np.random.default_rng(42)
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -197,7 +195,7 @@ for i, (name, h_true) in enumerate(TRUTHS):
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('Planted-Truth Benchmark - Recovers the Pipeline a Known Kernel?',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, rf'echter $b_P$-Treiber ($\delta$=11d), Rauschen = '
             r'echte Residuen mit Block-Wild-Vorzeichen, identische Pipeline '
             rf'(geblockte CV mit Purge, Wild-Bootstrap) --- $R={R}$ Replikate '

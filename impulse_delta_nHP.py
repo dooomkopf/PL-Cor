@@ -30,11 +30,9 @@ import numpy as np
 import pandas as pd
 from datetime import date
 from scipy.linalg import cho_factor, cho_solve
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 
 rng = np.random.default_rng(42)
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -209,7 +207,7 @@ ax[1][0].set_ylabel(r'$H(k)$')
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('Hashrate <-> Price Impulse Response - Causal Delta Exponents',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, r'backward $\delta$-exponents 45/91d (causal, right-edge) '
             r'--- grey zone: $k<\delta$, measurement windows overlap, no causal '
             'reading --- block-wild bootstrap 5--95\%',

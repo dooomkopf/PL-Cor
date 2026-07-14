@@ -52,11 +52,9 @@ import pandas as pd
 from datetime import date
 from scipy.signal import savgol_filter
 from scipy.linalg import cho_factor, cho_solve
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 
 rng = np.random.default_rng(42)
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -265,7 +263,7 @@ for i in (0, 2):
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('Hashrate <-> Price Impulse Response - Robustness Grid',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, r'SG windows 45/91/181/365d (zero-phase, acausal) vs. '
             r'backward $\delta$-exponents 10/30/90d (causal) --- ridge + smoothness, '
             'blocked CV, bootstrap 5--95\% band on $H$',

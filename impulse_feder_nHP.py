@@ -8,11 +8,9 @@ import os
 import numpy as np, pandas as pd
 from datetime import date
 from scipy.linalg import cho_factor, cho_solve
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 GENESIS = date(2009,1,3); K = 200; D_ = 11; START = '2012-03-13'
@@ -100,7 +98,7 @@ ax.legend(loc='upper right', fontsize=10, facecolor='#1A1A1A',
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('L2 Spring Control - Permanent Effect vs Spring Strength',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, r'penalty $\lambda D^{T}D + \lambda_2 I$: the spring pulls '
             r'the kernel level toward zero, i.e. AGAINST a permanent effect --- '
             r'$\delta$=11d causal exponents, fresh CV per $\rho$, block-wild '

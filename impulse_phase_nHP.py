@@ -62,11 +62,9 @@ import numpy as np
 import pandas as pd
 from datetime import date, timedelta
 from scipy.linalg import cho_factor, cho_solve, block_diag
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 
 rng = np.random.default_rng(42)
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -423,7 +421,7 @@ axs[0].set_ylabel(r'$H(k)$')
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('Hashrate <-> Price Impulse Response - Halving-Phase Kernels',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, r'halving clock: P1 100-550d, P2 550-950d, P3 wraps '
             r'the halving --- $\delta$=11d, pooled over cycles --- '
             'pointwise 5--95\\% bands',

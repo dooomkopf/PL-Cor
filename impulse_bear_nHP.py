@@ -46,11 +46,9 @@ import statsmodels.api as sm
 from statsmodels.regression.quantile_regression import QuantReg
 from datetime import date
 from scipy.linalg import cho_factor, cho_solve, block_diag
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 plt.style.use('/home/hz/Data/hz.mplstyle')
-mpl.rcParams['font.sans-serif'] = ['Comfortaa', 'DejaVu Sans', 'Arial']
 
 rng = np.random.default_rng(42)
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -269,7 +267,7 @@ ax[1][0].set_ylabel(r'$H(k)$, $G(k)$')
 with plt.rc_context({'text.usetex': False}):
     plt.suptitle('Hashrate <-> Price Impulse Response - Bear-Regime Interaction',
                  color='#CCCCCC', fontsize=14, y=0.985,
-                 fontname='Comfortaa', fontweight='bold')
+                 fontweight='bold')
 plt.figtext(0.5, 0.935, r'bear = price below the 10\% quantile PL line '
             '(full-history fit, declared look-ahead) --- '
             r'$\delta$=11d causal exponents, AR baseline + bear dummy, '

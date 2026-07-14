@@ -17,7 +17,7 @@ def draw(ax, R):
     # free-intercept check: same Kalman, alpha(t) free instead of pinned to 0
     ax.fill_between(g, R['gamma_fa'] - 2 * R['sg_fa'], R['gamma_fa'] + 2 * R['sg_fa'],
                     color=COL_FA, alpha=0.15)
-    ax.plot(g, R['gamma_fa'], color=COL_FA, lw=1.4, ls='--', label='γ_exp free α(t) ±2σ')
+    ax.plot(g, R['gamma_fa'], color=COL_FA, lw=1.4, label='γ_exp free α(t) ±2σ')
     ax.set_ylabel('γ_exp')
     ax.set_title(f"(a) EXPONENT space:  n_H = γ_exp · n_P   (global {R['g0']:+.2f})",
                  color=COLOR_TXT, fontsize=12)

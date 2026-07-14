@@ -25,6 +25,11 @@ STEP 2 -- OUR coupling, EXPONENT space      (tvp_gamma)            -> PLOT 1
   observation variance R(t) = sz_H^2 + gamma^2 sz_P^2 uses the per-cycle noise.
   -> gamma_exp(t) with a posterior band. THIS IS OUR METHOD.
 
+STEP 2b -- free-intercept check   (tvp_gamma_free_alpha)            -> PLOT 1
+  Same TVP Kalman, but the intercept alpha(t) is FREE instead of pinned to 0:
+  z_H = alpha(t) + gamma_fa(t) * z_P.  Green solid curve in plot (a)
+  (Adriano check 13.07.).
+
 STEP 3 -- level-space quantity, ORIGINAL space   (rolling_slope)    -> PLOT 2
   Rolling-OLS slope of the actual ln H on ln P = the level-space gamma
   (static log-log OLS slope ~ 2). Descriptive only (levels are I(1)); shown for COMPARISON.
@@ -36,6 +41,8 @@ STEP 4 -- does OUR method reproduce it?   (integrate_exp_to_level) -> PLOT 2
   then its rolling slope. Here log is only the power-law arithmetic transform.
   If that curve sits on the transformed H curve, our independent n_P/n_H
   estimate reproduces the H/P diagnostic coupling.
+  The SAME integration applied to gamma_fa gives the green dashed check curve
+  in plot (b); alpha(t) itself does NOT enter the integration.
 
 KEY DISTINCTION (do not confuse again)
 --------------------------------------

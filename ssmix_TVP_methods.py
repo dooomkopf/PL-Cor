@@ -337,13 +337,16 @@ def compute(SG, bw, bwg, poly, win, bwl):
     gamma_fa, sg_fa, alpha_fa, g0_fa = tvp_gamma_free_alpha(zP, szP, zH, szH, bwg, poly)  # STEP 2b: free-intercept check
     lnH_rec = integrate_exp_to_level(gamma, slnP, slnH)                   # STEP 4: integrate it back
     glev_from_exp, _ = rolling_slope(slnP, lnH_rec, win)                  #  -> curve 1 (our integrated)
+    lnH_rec_fa = integrate_exp_to_level(gamma_fa, slnP, slnH)             # STEP 4 for gamma_fa (free-alpha check)
+    glev_from_exp_fa, _ = rolling_slope(slnP, lnH_rec_fa, win)            #  -> its integrated curve
     gl_adr, gl_adr_sd = adriano_original_gamma(g)                            # curve: Adriano DOCX (FROZEN)
     gl_ours, gl_ours_sd, mod_noise = level_tvp_kalman(slnP, slnH, g, bwl, noise='ours',
                                                       return_noise=True) # curve: option y (our noise)
     lev, lev_g = level_gamma_per_cycle(slnP, slnH, g)
     return dict(g=g, zP=zP, zH=zH, gamma=gamma, sg_=sg_, g0=g0,
                 gamma_fa=gamma_fa, sg_fa=sg_fa, alpha_fa=alpha_fa, g0_fa=g0_fa,
-                glev_from_exp=glev_from_exp, gl_adr=gl_adr, gl_adr_sd=gl_adr_sd,
+                glev_from_exp=glev_from_exp, glev_from_exp_fa=glev_from_exp_fa,
+                gl_adr=gl_adr, gl_adr_sd=gl_adr_sd,
                 gl_ours=gl_ours, gl_ours_sd=gl_ours_sd, mod_noise=mod_noise,
                 lev=lev, lev_g=lev_g)
 

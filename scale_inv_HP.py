@@ -89,6 +89,20 @@ def main():
     sameP = (c1P == c2P) & (c1P >= 0)
     print(f"H same-cycle pairs = {sameH.sum()} ({100*sameH.mean():.0f}%)")
     print(f"P same-cycle pairs = {sameP.sum()} ({100*sameP.mean():.0f}%)")
+
+    print("\nper-cycle exponents n (fit through origin, same-cycle pairs):")
+    print(f"{'cycle':>6}   {'n_P (price)':>12}   {'n_H (hashrate)':>14}")
+    for k, name in enumerate(names):
+        mP, mH = sameP & (c1P == k), sameH & (c1H == k)
+        nP = LinearRegression(fit_intercept=False).fit(
+            ltP[mP].reshape(-1, 1), lxP[mP]).coef_[0] if mP.any() else float('nan')
+        nH = LinearRegression(fit_intercept=False).fit(
+            ltH[mH].reshape(-1, 1), lxH[mH]).coef_[0] if mH.any() else float('nan')
+        note = '   (cycle incomplete)' if name == "'25" else ''
+        print(f"{name:>6}   {nP:12.2f}   {nH:14.2f}{note}")
+    bH = LinearRegression(fit_intercept=False).fit(ltH.reshape(-1, 1), lxH).coef_[0]
+    print(f"{'global':>6}   {bP:12.2f}   {bH:14.2f}   (all pairs)")
+
     if args.no_plot:
         return
 
